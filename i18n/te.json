@@ -1,0 +1,41 @@
+{
+  "app_title": "CoV India",Cov ఇండియా
+  "yes_label": "Yes",అవును
+  "no_label": "No", కాదు
+  "exit_label": "Exit", నిష్క్రమణ
+  "exit_ques_label": "Do you want to exit?", మీరు నిష్క్రమించాలనుకుంటున్నారా
+  "button_self_report": "Self-report Symptoms", స్వీయ నివేదిక లక్షణాలు
+  "start_screen_btn_label": "Check for Symptoms",లక్షణాల కోసం తనిఖీ చేయండి
+  "protective_measure_key": "Protective Measures", రక్షణ చర్యలు
+  "important_links_key": "Important Links",ముఖ్యమైన లింకులు
+  "helpline_numbers_key":"helpline numbers": హెల్ప్ లైన్  సంఖ్యలు
+  "location_history_key": "Location History", స్థాన చరిత్ర
+  "resources_key": "Resources", వనరులు
+  "change_language_key": "Change Language", భాష అనువాదము
+  "contact_us_key": "Contact Us", మమ్మల్ని సంప్రదించండి
+  "privacy_policy_key": "Privacy Policy", గోప్యతా విధానం
+  "feedback_key": "Feedback", ఫీడ్బ్యాక్
+  "hand_wash_noti_title": "Wash your Hands", మీ చేతులను కడుక్కోండి
+  "hand_wash_noti_subtitle": "It's time to wash your hands with soap or rub it with a alcohol based sanitizer!!", మీ చేతులను సబ్బుతో కడగడం లేదా ఆల్కహాల్ బేస్డ్ శానితైజర్ తో రుద్దవలేను
+  "risk_label": "Risk", ప్రమాదం 
+  "very_low_label": "Very Low", చాలా తక్కువ
+  "risk_0":  "It's unlikely that you have CoVID-19 infection. Follow protective measures and maintain a respiratory hygiene", మీకు కవిడ్-19 సంక్రమణ ఉండే అవకాశం లేదు. రక్షణ చర్యలను అనుసరించండి మరియు శ్వాసకోశ పరిశుభ్రతను పాటించండి.
+  "risk_1": "Follow protective measures and maintain respiratory hygiene.", రక్షణ చర్యలను అనుసరించండి మరియు శ్వాసకోశ పరిశుభ్రతను పాటించండి.
+  "risk_2": "Practice 14-day quarantine, and if symptoms starts to surface, contact at helpline number.", 14- రోజల దిగ్బంధాన్ని ప్రాక్టీస్ చేయండి మరియు లక్షణాలు కనిపించడం ప్రారంభిస్తే, హెల్ప్ లైన్ నంబర్ ను సంప్రదించండి.
+  "risk_3": "Immediately consult a doctor and contact your state helpline for further support.", వెంటనే వైద్యుడిని సంప్రదించండి, మరింత మద్దతు కోసం మీ రాష్ట్ర హెల్ప్ లోనేను  సంప్రదించండి.
+  "low": "Low", తక్కువ
+  "medium_label": "Medium", మధ్యస్థత
+  "high_label": "High", అధికం
+  "view_helpline_label": "View Helpline Number", హెల్ప్లైన్ నంబర్ను చూడండి
+  "result_label": "Result", ఫలితం
+  "intro_title_1": "Screen for CoVID19", covid-19 స్క్రీన్.
+  "intro_desc_1": "Check yourself for any risk of Corona virus disease, through a simple question-answers.\n", కరోనా వైరస్ వ్యాధి యొక్క ఏదైనా ప్రమాదం కోసం,సాధారణ ప్రశ్న సమాధానాల ద్వారా మిమ్మల్ని మీరు తనిఖీ చేయండి.
+  "intro_title_2": "Hygiene Nudges", పరిశుభ్రత చిటికెలు
+  "intro_desc_2": "Get frequent Hygiene Notification at regular intervals.", క్రమం తప్పకుండా పరిశుభ్రత నోటిఫికేషన్లను పొందండి.
+  "intro_title_3": "Contact Tracking & Tracing (Beta)",covid యొక్క అన్వేషణ మరియు ట్రేస్ చేయుట
+  "intro_desc_3": "The app records your location and alerts you if you have crossed paths with possible infected people and zone.",అనువర్తనం మీ స్థానాన్ని రికార్డ్ చేస్తుంది మరియు మీరు సోకిన వ్యక్తుల మరియు ఎంతో మార్గాలు దాటితే మిమ్మల్ని హెచ్చరిస్తుంది.
+  "intro_title_4": "Privacy", గోప్యత
+  "intro_desc_4": "Location data is recorded locally, and we do not record/retain any personal information.", స్థాన డేటా స్థానికంగా రికార్డ్ చేయబడుతుంది మరియు మేము వ్యక్తిగత సమాచారాన్ని రికార్డ్ చేయము/నిలుపుకోము.
+  "thank_you_label": "Thank you!", ధన్యవాదములు
+  "answer_que_label": "Please answer the question to continue"కొనసాగించడానికి దయచేసి ఈ ప్రశ్నకు సమాధానం ఇవ్వండి
+}
