@@ -1,0 +1,142 @@
+[
+  {
+    "id": 1,
+    "state": "Andhra Pradesh",
+    "no": "0866-2410978"
+  },
+  {
+    "id": 2,
+    "state": "Arunachal Pradesh",
+    "no": 9536055743
+  },
+  {
+    "id": 3,
+    "state": "Assam",
+    "no": 6913347770
+  },
+  {
+    "id": 4,
+    "state": "Bihar",
+    "no": 104
+  },
+  {
+    "id": 5,
+    "state": "Chhattisgarh",
+    "no": "077122-35091"
+  },
+  {
+    "id": 6,
+    "state": "Goa",
+    "no": 104
+  },
+  {
+    "id": 7,
+    "state": "Gujarat",
+    "no": 104
+  },
+  {
+    "id": 8,
+    "state": "Haryana",
+    "no": 8558893911
+  },
+  {
+    "id": 9,
+    "state": "Himachal Pradesh",
+    "no": 104
+  },
+  {
+    "id": 10,
+    "state": "Jharkhand",
+    "no": 104
+  },
+  {
+    "id": 11,
+    "state": "Karnataka",
+    "no": 104
+  },
+  {
+    "id": 12,
+    "state": "Kerala",
+    "no": "0471-2552056"
+  },
+  {
+    "id": 13,
+    "state": "Madhya Pradesh",
+    "no": "0755-2527177"
+  },
+  {
+    "id": 14,
+    "state": "Maharashtra",
+    "no": "020-26127394"
+  },
+  {
+    "id": 15,
+    "state": "Manipur",
+    "no": 3852411668
+  },
+  {
+    "id": 16,
+    "state": "Meghalaya",
+    "no": 9366090748
+  },
+  {
+    "id": 17,
+    "state": "Mizoram",
+    "no": 102
+  },
+  {
+    "id": 18,
+    "state": "Nagaland",
+    "no": 7005539653
+  },
+  {
+    "id": 19,
+    "state": "Odisha",
+    "no": 9439994859
+  },
+  {
+    "id": 20,
+    "state": "Punjab",
+    "no": 104
+  },
+  {
+    "id": 21,
+    "state": "Rajasthan",
+    "no": "0141-2225624"
+  },
+  {
+    "id": 22,
+    "state": "Sikkim",
+    "no": 104
+  },
+  {
+    "id": 23,
+    "state": "Tamil Nadu",
+    "no": "044-29510500"
+  },
+  {
+    "id": 24,
+    "state": "Telangana",
+    "no": 104
+  },
+  {
+    "id": 25,
+    "state": "Tripura",
+    "no": "0381-2315879"
+  },
+  {
+    "id": 26,
+    "state": "Uttarakhand",
+    "no": 104
+  },
+  {
+    "id": 27,
+    "state": "Uttar Pradesh",
+    "no": 18001805145
+  },
+  {
+    "id": 28,
+    "state": "West Bengal",
+    "no": 3323412600
+  }
+]

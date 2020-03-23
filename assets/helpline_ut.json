@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "ut": "Andaman and Nicobar Islands",
+    "no": "03192-232102"
+  },
+  {
+    "id": 2,
+    "ut": "Chandigarh",
+    "no": 9779558282
+  },
+  {
+    "id": 3,
+    "ut": "Dadra and Nagar Haveli and Daman & Diu",
+    "no": 104
+  },
+  {
+    "id": 4,
+    "ut": "Delhi",
+    "no": "011-22307145"
+  },
+  {
+    "id": 5,
+    "ut": "Jammu",
+    "no": "1912520982"
+  },
+  {
+    "id": 6,
+    "ut": "Kashmir",
+    "no": "0194-2440283"
+  },
+  {
+    "id": 7,
+    "ut": "Ladakh",
+    "no": 1982256462
+  },
+  {
+    "id": 8,
+    "ut": "Lakshadweep",
+    "no": 4896263742
+  },
+  {
+    "id": 9,
+    "ut": "Puducherry",
+    "no": 104
+  }
+]

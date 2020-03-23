@@ -1,0 +1,21 @@
+[{
+  "url": "https://www.mohfw.gov.in/",
+  "image": "assets/moh.jpg",
+  "title": "Ministry of Health - India"
+},
+  {
+    "url": "https://www.who.int/emergencies/diseases/novel-coronavirus-2019",
+    "image": "assets/moh.jpg",
+    "title": "Coronavirus - WHO"
+  },
+  {
+    "url": "https://www.mohfw.gov.in/pdf/Poster_Corona_ad_Eng.pdf",
+    "image": "assets/moh.jpg",
+    "title": "Do's and Don'ts - (English)"
+  },
+  {
+    "url": "https://www.mohfw.gov.in/pdf/Poster_Corona_ad_Hin.pdf",
+    "image": "assets/moh.jpg",
+    "title": "Do's and Don'ts - (Hindi)"
+  }
+]

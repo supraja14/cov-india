@@ -6,9 +6,9 @@ import 'package:flutter/services.dart';
 
 const Map<String, String> languages = {
   'en': "English",
-  'hi': "Hindi",
-  'mr': "Marathi",
-  'pa': "Punjabi"
+  'hi': "हिंदी",
+  'mr': "मराठी",
+  'pa': "ਪੰਜਾਬੀ"
 };
 
 class AppLocalizations {
@@ -30,6 +30,7 @@ class AppLocalizations {
 
   Future<bool> load() async {
     // Load the language JSON file from the "lang" folder
+    print("hello");
     String jsonString =
         await rootBundle.loadString('i18n/${locale.languageCode}.json');
     Map<String, dynamic> jsonMap = json.decode(jsonString);
@@ -71,5 +72,5 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool shouldReload(_AppLocalizationsDelegate old) => false;
+  bool shouldReload(_AppLocalizationsDelegate old) => true;
 }

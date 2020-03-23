@@ -15,6 +15,9 @@
 *.iws
 .idea/
 
+key.jks
+key.properties
+
 # google services
 google-services.json
 

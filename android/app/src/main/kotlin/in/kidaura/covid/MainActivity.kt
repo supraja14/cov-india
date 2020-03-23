@@ -1,4 +1,4 @@
-package com.paras.coronavirus_test
+package `in`.kidaura.covid
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

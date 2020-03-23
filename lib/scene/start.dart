@@ -1,9 +1,14 @@
 import 'package:coronavirus_test/scene/home.dart';
+import 'package:coronavirus_test/services/notification.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../localization.dart';
 import '../app_language.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:coronavirus_test/localization.dart';
 
 class StartScreen extends StatefulWidget {
   StartScreen({Key key}) : super(key: key);
@@ -14,48 +19,73 @@ class StartScreen extends StatefulWidget {
 
 class _StartScreenState extends State<StartScreen> {
   SwiperController _swipeController = new SwiperController();
+  var appLanguage;
+  SharedPreferences prefs;
+  bool isBuild = false;
 
   @override
   void initState() {
     super.initState();
+    checkFirstLoad();
+    loginAnonymous();
+    scheduleHandNotification(context);
+  }
+
+  checkFirstLoad() async {
+    prefs = await SharedPreferences.getInstance();
+    if (prefs.get('firstLoad') != null) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    } else {
+      this.setState(() {
+        isBuild = true;
+      });
+    }
+  }
+
+  loginAnonymous() async {
+    await FirebaseAuth.instance.signInAnonymously();
   }
 
   @override
   Widget build(BuildContext context) {
-    return (Scaffold(
-        body: SafeArea(
-            child: Container(
-                color: Colors.white,
-                padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                child: Column(children: [
-                  Image(
-                    image: AssetImage("assets/logo.png"),
-                    height: 150.0,
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text(
-                    "COVID19 - India",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green),
-                  ),
-                  SizedBox(height: 40),
-                  Expanded(
-                      child: Swiper(
-                    controller: _swipeController,
-                    itemBuilder: (context, position) {
-                      return startPages(position);
-                    },
-                    itemCount: 5,
-                    loop: false,
-                    physics: NeverScrollableScrollPhysics(),
-                    pagination: new SwiperPagination(),
-                  ))
-                ])))));
+    appLanguage = Provider.of<AppLanguage>(context);
+    return (!isBuild
+        ? Scaffold()
+        : Scaffold(
+            body: SafeArea(
+                child: Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                    child: Column(children: [
+                      Image(
+                        image: AssetImage("assets/logo.png"),
+                        height: 150.0,
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Text(
+                        AppLocalizations.of(context).translate("app_title"),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green),
+                      ),
+                      SizedBox(height: 40),
+                      Expanded(
+                          child: Swiper(
+                        controller: _swipeController,
+                        itemBuilder: (context, position) {
+                          return startPages(position);
+                        },
+                        itemCount: 5,
+                        loop: false,
+                        physics: NeverScrollableScrollPhysics(),
+                        pagination: new SwiperPagination(),
+                      ))
+                    ])))));
   }
 
   startPages(int position) {
@@ -106,7 +136,7 @@ class _StartScreenState extends State<StartScreen> {
           Align(
               alignment: Alignment.topCenter,
               child: Column(children: [
-                Text("Report Symptoms",
+                Text(AppLocalizations.of(context).translate("intro_title_1"),
                     style: TextStyle(
                         color: Colors.green,
                         fontSize: 18,
@@ -114,8 +144,7 @@ class _StartScreenState extends State<StartScreen> {
                 SizedBox(
                   height: 10,
                 ),
-                Text(
-                    "By tracking, and self reporting the symptoms, the spread of infection can be monitored and slowed down",
+                Text(AppLocalizations.of(context).translate("intro_desc_1"),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.green,
@@ -159,7 +188,7 @@ class _StartScreenState extends State<StartScreen> {
           Align(
               alignment: Alignment.topCenter,
               child: Column(children: [
-                Text("Hygeine Nudges",
+                Text(AppLocalizations.of(context).translate("intro_title_2"),
                     style: TextStyle(
                         color: Colors.green,
                         fontSize: 18,
@@ -167,13 +196,27 @@ class _StartScreenState extends State<StartScreen> {
                 SizedBox(
                   height: 10,
                 ),
-                Text(
-                    "Get frequent Hygiene Notification, when you move from one place to another or at regular intervals",
+                Text(AppLocalizations.of(context).translate("intro_desc_2"),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.green,
                       fontSize: 15,
-                    ))
+                    )),
+                SizedBox(
+                  height: 10,
+                ),
+                FloatingActionButton(
+                  heroTag: 'notif',
+                  onPressed: () {
+                    viewHandNotification(context);
+                  },
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.notifications_active,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
               ])),
           Align(
               alignment: Alignment.center,
@@ -205,6 +248,7 @@ class _StartScreenState extends State<StartScreen> {
               mini: true,
               child: Icon(Icons.check),
               onPressed: () {
+                print(prefs.setBool('firstLoad', false));
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => HomeScreen()));
               },
@@ -213,7 +257,7 @@ class _StartScreenState extends State<StartScreen> {
           Align(
               alignment: Alignment.topCenter,
               child: Column(children: [
-                Text("Privacy",
+                Text(AppLocalizations.of(context).translate("intro_title_4"),
                     style: TextStyle(
                         color: Colors.green,
                         fontSize: 18,
@@ -221,8 +265,7 @@ class _StartScreenState extends State<StartScreen> {
                 SizedBox(
                   height: 10,
                 ),
-                Text(
-                    "The App records data locally, and takes cosent before uploading any information",
+                Text(AppLocalizations.of(context).translate("intro_desc_4"),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.green,
@@ -266,7 +309,7 @@ class _StartScreenState extends State<StartScreen> {
           Align(
               alignment: Alignment.topCenter,
               child: Column(children: [
-                Text("Contact Tracking",
+                Text(AppLocalizations.of(context).translate("intro_title_3"),
                     style: TextStyle(
                         color: Colors.green,
                         fontSize: 18,
@@ -274,8 +317,7 @@ class _StartScreenState extends State<StartScreen> {
                 SizedBox(
                   height: 10,
                 ),
-                Text(
-                    "App records your location and alerts you if you have crossed paths with possible infected zones",
+                Text(AppLocalizations.of(context).translate("intro_title_3"),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.green,
@@ -318,7 +360,7 @@ class _StartScreenState extends State<StartScreen> {
                           color: Colors.green,
                           onPressed: () {
                             _swipeController.next();
-                            AppLanguage().changeLanguage(Locale(e));
+                            appLanguage.changeLanguage(Locale(e));
                           },
                           child: Text(
                             languages[e],

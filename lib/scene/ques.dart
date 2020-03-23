@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
@@ -6,20 +7,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'result.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../localization.dart';
-
-class Questions {
-  final String ques;
-  var options;
-  String answer;
-
-  Questions({this.ques, this.options});
-
-  factory Questions.fromJson(Map<String, dynamic> parsedJson) {
-    return Questions(
-        ques: parsedJson['ques'],
-        options: new List<String>.from(parsedJson['options']));
-  }
-}
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:location/location.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class QuesScreen extends StatefulWidget {
   QuesScreen({Key key}) : super(key: key);
@@ -36,11 +26,41 @@ class _QuesScreenState extends State {
   int pagesCount;
   String langCode;
   PageController controller = PageController(viewportFraction: 1);
+  var userLocation;
 
   @override
   void initState() {
     super.initState();
     _loadQA();
+    _getLocation();
+  }
+
+  _getLocation() async {
+    Location location = new Location();
+
+    PermissionStatus _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.DENIED) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.GRANTED) {
+        userLocation = "PERMISSION DENIED";
+      }
+    }
+
+    bool _serviceEnabled = await location.serviceEnabled();
+    if (_serviceEnabled) {
+      var l = await location.getLocation();
+      userLocation = {
+        'alt': l.altitude,
+        'lat': l.latitude,
+        'long': l.longitude,
+        'speed': l.speed,
+        'acc': l.accuracy,
+        'heading': l.heading
+      };
+      print(userLocation);
+    } else {
+      userLocation = "NOT ENABLED";
+    }
   }
 
   _loadQA() async {
@@ -81,7 +101,7 @@ class _QuesScreenState extends State {
         child: (Scaffold(
             appBar: AppBar(
               title: Text(
-                "COVID-19 Screening Test",
+                AppLocalizations.of(context).translate("app_title"),
                 style: TextStyle(color: Colors.black87),
               ),
               backgroundColor: Colors.white,
@@ -118,20 +138,16 @@ class _QuesScreenState extends State {
                         if (questions[controller.page.toInt()]['type'] !=
                             "Checkbox") {
                           Fluttertoast.showToast(
-                              msg: 'Please answer the question to continue.',
+                              msg: AppLocalizations.of(context).translate('answer_que_label'),
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.CENTER,
-                              timeInSecForIos: 1,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white);
+                              timeInSecForIos: 1);
                           return;
                         }
+                        setCheckboxEmpty(controller.page.toInt());
                       }
                       if (controller.page.toInt() == this.pagesCount - 1) {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ResultScreen()));
+                        calculateResult();
                       }
 
                       controller.nextPage(
@@ -179,12 +195,16 @@ class _QuesScreenState extends State {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: questions[index]["A-$langCode"]
                 .map<Widget>((item) => GestureDetector(
-                    onTap: () => _setAnswer(
-                        index, questions[index]['A-$langCode'].indexOf(item)),
+                    onTap: () {
+                      _setAnswer(
+                          index, questions[index]['A-$langCode'].indexOf(item));
+                      controller.nextPage(
+                          duration: kTabScrollDuration, curve: Curves.ease);
+                    },
                     child: Card(
                         color: isOptionAnswered(index,
                                 questions[index]['A-$langCode'].indexOf(item))
-                            ? Color.fromRGBO(82, 151, 93, 0.7)
+                            ? Colors.white70
                             : Colors.white,
                         elevation: 4,
                         child: Padding(
@@ -304,7 +324,17 @@ class _QuesScreenState extends State {
     return false;
   }
 
-  setCheckboxAnswer(bool selected, int index, String item) {
+  setCheckboxEmpty(int index) {
+    this.setState(() {
+      answers[index] = {
+        'id': questions[index]['id'].toString(),
+        'question': questions[index]['Q-en'],
+        'answer': [],
+      };
+    });
+  }
+
+  setCheckboxAnswer(dynamic selected, int index, dynamic item) {
     if (answers[index] == null) {
       this.setState(() {
         answers[index] = {
@@ -317,8 +347,10 @@ class _QuesScreenState extends State {
       this.setState(() {
         if (selected) {
           answers[index]['answer'].add(item);
-        } else {
+        } else if (!selected) {
           answers[index]['answer'].remove(item);
+        } else {
+          answers[index]['answer'] = [];
         }
       });
     }
@@ -332,5 +364,41 @@ class _QuesScreenState extends State {
         'answer': item.toString()
       };
     });
+  }
+
+  calculateResult() async {
+    var isTravel = answers[0]['answer'] == "0";
+    var isContacted = answers[0]['answer'] == "0";
+    var isSymptoms = answers[4]['answer'].length > 0;
+    var isChronic = answers[5]['answer'] == "0";
+    var isClinical = answers[3]['answer'] == "0";
+
+    String result = "RISK0";
+
+    if (isSymptoms && (isContacted || isTravel)) {
+      result = "RISK3"; // contact doctor and help line number
+    } else if (isSymptoms || isTravel || isContacted || isChronic) {
+      result = "RISK2"; // maintain 14-day quarantine
+    } else if (isClinical) {
+      result =
+          "RISK1"; // use protective measures & maintain respiratory hygiene
+    }
+    var user = await FirebaseAuth.instance.currentUser();
+    print(user.uid);
+    Firestore.instance.collection('questions_test').document().setData({
+      'data': answers,
+      'uid': user.uid,
+      'datetime': DateTime.now().toString(),
+      'location': userLocation
+    });
+
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ResultScreen(),
+          settings: RouteSettings(
+            arguments: result,
+          ),
+        ));
   }
 }

@@ -107,9 +107,9 @@ class _MyAppState extends State<MyApp> {
               title: 'CoronaVirus - Test',
               theme: ThemeData(
                 primarySwatch: Colors.green,
-                pageTransitionsTheme: PageTransitionsTheme(builders: {
-                  TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-                }),
+//                pageTransitionsTheme: PageTransitionsTheme(builders: {
+//                  TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+//                }),
               ),
               locale: model.appLocal,
               supportedLocales: [
