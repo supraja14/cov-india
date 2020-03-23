@@ -389,7 +389,8 @@ class _QuesScreenState extends State {
       'data': answers,
       'uid': user.uid,
       'datetime': DateTime.now().toString(),
-      'location': userLocation
+      'location': userLocation,
+      'result': result
     });
 
     Navigator.pushReplacement(

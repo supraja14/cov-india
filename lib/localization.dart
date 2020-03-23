@@ -8,7 +8,8 @@ const Map<String, String> languages = {
   'en': "English",
   'hi': "हिंदी",
   'mr': "मराठी",
-  'pa': "ਪੰਜਾਬੀ"
+  'pa': "ਪੰਜਾਬੀ",
+  "ta": "தமிழ்"
 };
 
 class AppLocalizations {

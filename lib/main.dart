@@ -42,8 +42,7 @@ void backgroundFetchHeadlessTask(String taskId) async {
         periodic: false,
         forceAlarmManager: true,
         stopOnTerminate: false,
-        enableHeadless: true
-    ));
+        enableHeadless: true));
   }
 }
 
@@ -116,7 +115,8 @@ class _MyAppState extends State<MyApp> {
                 Locale('en', 'US'),
                 Locale('hi'),
                 Locale('mr'),
-                Locale('pa')
+                Locale('pa'),
+                Locale('ta')
               ],
               localizationsDelegates: [
                 AppLocalizations.delegate,

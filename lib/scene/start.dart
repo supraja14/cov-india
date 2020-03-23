@@ -27,7 +27,6 @@ class _StartScreenState extends State<StartScreen> {
   void initState() {
     super.initState();
     checkFirstLoad();
-    loginAnonymous();
     scheduleHandNotification(context);
   }
 
@@ -248,7 +247,8 @@ class _StartScreenState extends State<StartScreen> {
               mini: true,
               child: Icon(Icons.check),
               onPressed: () {
-                print(prefs.setBool('firstLoad', false));
+                loginAnonymous();
+                prefs.setBool('firstLoad', false);
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => HomeScreen()));
               },
